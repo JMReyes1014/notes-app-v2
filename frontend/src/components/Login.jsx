@@ -41,7 +41,16 @@ function Login({ route, method }) {
         nav('/login');
       }
     } catch (error) {
-      alert(error); //make error screen
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: error.message || "An error occurred during login. Please try again.",
+        confirmButtonText: "OK",
+        confirmButtonColor: "gray",
+        background: "#0e0d0d",
+        color: "white",
+        iconColor: "gray",
+      });
     } finally {
       setLoading(false);
     }
