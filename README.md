@@ -69,7 +69,7 @@ A simple Notes application built using **React** for the frontend and **Django**
    ```
 4. Start the React development server:
    ```sh
-   npm start
+   npm run dev
    ```
 
 ## API Endpoints
@@ -79,7 +79,8 @@ A simple Notes application built using **React** for the frontend and **Django**
 | POST   | `/api/register/` | User registration   |
 | GET    | `/api/notes/`    | Retrieve all notes  |
 | POST   | `/api/notes/`    | Add a new note      |
-| DELETE | `/api/notes/:id` | Delete a note       |
+| DELETE | `/api/notes/delete/:id` | Delete a note       |
+| EDIT | `/api/notes/edit/:id` | Delete a note       |
 
 ## Screenshots
 ### Login Page
