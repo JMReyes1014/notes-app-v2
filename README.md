@@ -80,7 +80,7 @@ A simple Notes application built using **React** for the frontend and **Django**
 | GET    | `/api/notes/`    | Retrieve all notes  |
 | POST   | `/api/notes/`    | Add a new note      |
 | DELETE | `/api/notes/delete/:id` | Delete a note       |
-| EDIT | `/api/notes/edit/:id` | Delete a note       |
+| EDIT | `/api/notes/edit/:id` | Edit a note       |
 
 ## Screenshots
 ### Login Page
