@@ -55,15 +55,19 @@ A simple Notes application built using **React** for the frontend and **Django**
    ```
 
 ### Frontend Setup
-1. Navigate to the frontend directory:
+1. Create React App
+   ```sh
+   npm create vite@latest
+   ```
+2. Navigate to the frontend directory:
    ```sh
    cd ../frontend
-   ```
-2. Install dependencies:
+   ``
+3. Install dependencies:
    ```sh
-   npm install
+   npm install react-router-dom jwt-decode axios
    ```
-3. Start the React development server:
+4. Start the React development server:
    ```sh
    npm start
    ```
