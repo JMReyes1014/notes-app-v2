@@ -78,7 +78,23 @@ A simple Notes application built using **React** for the frontend and **Django**
 | DELETE | `/api/notes/:id` | Delete a note       |
 
 ## Screenshots
-*(To be added soon)*
+### Login Page
+![Login Page](Screenshots/Login.png)
+
+### Register Page
+![Login Page](Screenshots/Register.png)
+
+### Notes List
+![Notes List](Screenshots/Home.png)
+
+### Add Note
+![Add Note](Screenshots/Add.png)
+
+### Delete Note
+![Add Note](Screenshots/Delete.png)
+
+### Edit Note
+![Add Note](Screenshots/Edit.png)
 
 ## Contributing
 Feel free to submit issues and pull requests to improve this project.
