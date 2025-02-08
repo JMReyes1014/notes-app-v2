@@ -44,7 +44,7 @@ function Login({ route, method }) {
       Swal.fire({
         icon: "error",
         title: "Login Failed",
-        text: error.message || "An error occurred during login. Please try again.",
+        text: "Wrong Username or Password. Please try again." || error.message,
         confirmButtonText: "OK",
         confirmButtonColor: "gray",
         background: "#0e0d0d",

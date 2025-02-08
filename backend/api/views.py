@@ -31,6 +31,22 @@ class NoteDelete(generics.DestroyAPIView): # This class inherits from the Destro
         user = self.request.user
         return Note.objects.filter(author=user)
     
+class EditNoteView(generics.RetrieveUpdateAPIView):
+    queryset = Note.objects.all()
+    serializer_class = noteSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Note.objects.filter(author=user)
+
+    def perform_update(self, serializer):
+        if serializer.is_valid():
+            serializer.save(author=self.request.user)
+        else:
+            print(serializer.errors)
+
+
 # This class inherits from the CreateAPIView 
 # class to create a new user
 class CreateUserView(generics.CreateAPIView):    

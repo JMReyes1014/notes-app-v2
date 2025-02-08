@@ -11,11 +11,13 @@ function Home() {
   const [filteredNotes, setFilteredNotes] = useState([]);
   const [user, setUser] = useState({ username: "" });
   const [loginSuccess, setLoginSuccess] = useState(false);
+  const [errorFetch, setErrorFetch] = useState(null);
 
   useEffect(() => {
     getNotes();
     getUser();
     checkLoginSuccess();
+    checkErrorFetch();
   }, []);
 
   useEffect(() => {
@@ -29,9 +31,8 @@ function Home() {
       .then((data) => {
         setNotes(data);
         setFilteredNotes(data);
-        console.log(data);
       })
-      .catch((error) => alert("Error fetching notes"));
+      .catch((error) => setErrorFetch(error));
   };
 
   const getUser = () => {
@@ -40,9 +41,8 @@ function Home() {
       .then((res) => res.data)
       .then((data) => {
         setUser(data);
-        console.log(data);
       })
-      .catch((error) => alert("Error fetching user data"));
+      .catch((error) => setErrorFetch(error));
   };
 
   const checkLoginSuccess = () => {
@@ -52,6 +52,14 @@ function Home() {
       localStorage.removeItem('login_success');
     }
   };
+
+  const checkErrorFetch = () => {
+    const errorFetch = localStorage.getItem('error_fetch');
+    if (errorFetch) {
+      setErrorFetch(new Error('Error fetching data.'));
+      localStorage.removeItem('error_fetch');
+    }
+  }
 
   useEffect(() => {
     if (loginSuccess) {
@@ -67,7 +75,23 @@ function Home() {
       });
       setLoginSuccess(false); // Reset after displaying the alert
     }
-  }, [loginSuccess, user]);
+  }, [user]);
+
+  useEffect(() => {
+    if(errorFetch) {
+      Swal.fire({
+        icon: "error",
+        title: "There was an error!",
+        text: errorFetch.message || "An error occurred. Reload the page.",
+        confirmButtonText: "OK",
+        confirmButtonColor: "gray",
+        background: "#0e0d0d",
+        color: "white",
+        iconColor: "gray",
+      });
+      setErrorFetch(null);
+    }
+  }, [errorFetch]);
 
   const handleSearch = (searchValue) => {
     const filtered = notes.filter(note =>

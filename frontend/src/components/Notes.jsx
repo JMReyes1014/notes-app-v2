@@ -1,8 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import api from "../api";
 import Swal from "sweetalert2";
 
 function Notes({ notes, getNotes }) {
+  const [editNoteId, setEditNoteId] = useState(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editContent, setEditContent] = useState("");
+
   useEffect(() => {
     getNotes();
   }, []);
@@ -62,6 +66,53 @@ function Notes({ notes, getNotes }) {
     });
   };
 
+  const handleEdit = (note) => {
+    setEditNoteId(note.id);
+    setEditTitle(note.title);
+    setEditContent(note.content);
+  };
+
+  const handleUpdate = (id) => {
+    api
+      .put(`/api/notes/edit/${id}/`, { title: editTitle, content: editContent })
+      .then((res) => {
+        if (res.status === 200) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Updated!',
+            text: 'Your note has been updated.',
+            confirmButtonColor: 'gray',
+            background: '#0e0d0d',
+            color: 'white',
+            iconColor: 'gray',
+          });
+          setEditNoteId(null);
+          getNotes();
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: 'Error updating note.',
+            confirmButtonColor: 'gray',
+            background: '#0e0d0d',
+            color: 'white',
+            iconColor: 'gray',
+          });
+        }
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Error updating note.',
+          confirmButtonColor: 'gray',
+          background: '#0e0d0d',
+          color: 'white',
+          iconColor: 'gray',
+        });
+      });
+  };
+
   return (
     <div className="note-container">
       {notes
@@ -71,9 +122,28 @@ function Notes({ notes, getNotes }) {
           return (
             <div className="note" key={note.id}>
               <div className="note-title">
-                <p>{note.title}</p>
+                {editNoteId === note.id ? (
+                  <input
+                    type="text"
+                    value={editTitle}
+                    onChange={(e) => setEditTitle(e.target.value)}
+                    onBlur={() => handleUpdate(note.id)}
+                  />
+                ) : (
+                  <p onDoubleClick={() => handleEdit(note)}>{note.title}</p>
+                )}
               </div>
-              <span className="note-span">{note.content}</span>
+              <span className="note-span">
+                {editNoteId === note.id ? (
+                  <textarea
+                    value={editContent}
+                    onChange={(e) => setEditContent(e.target.value)}
+                    onBlur={() => handleUpdate(note.id)}
+                  />
+                ) : (
+                  <span onDoubleClick={() => handleEdit(note)}>{note.content}</span>
+                )}
+              </span>
               <div className="note-footer">
                 <small>Created: {date}</small>
                 <div className="delete-icon">

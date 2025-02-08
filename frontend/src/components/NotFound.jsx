@@ -20,7 +20,7 @@ function NotFound() {
           <h3>Oops! Page not found</h3>
           <h1><span>4</span><span>0</span><span>4</span></h1>
         </div>
-        <h3>We are sorry, but the page you requested was not found</h3>
+        <h3 className='error-h3'>We are sorry, but the page you requested was not found</h3>
         <button onClick={handleGoHome} className="btn dark">Go Back Home</button>
       </div>
     </div>
