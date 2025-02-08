@@ -62,7 +62,7 @@ A simple Notes application built using **React** for the frontend and **Django**
 2. Navigate to the frontend directory:
    ```sh
    cd ../frontend
-   ``
+   ```
 3. Install dependencies:
    ```sh
    npm install react-router-dom jwt-decode axios
